@@ -19,21 +19,19 @@ function! JournalFoldExpr(lnum)
     endif
 endfunction
 function! JournalFoldText()
-    let line = getline(v:foldstart)
     let indent_level = IndentLevel(v:foldstart)
     let number_length = getwinvar(0, '&number') * getwinvar(0, '&numberwidth')
-    if indent_level
-	let prefix_length = (indent_level * (&tabstop - 1))
-	let prefix = "-" . repeat(" ", prefix_length - 1)
+    let line = repeat(" ", indent_level * &tabstop) . strpart(getline(v:foldstart), indent_level)
+    let fold_info = "+" . (v:foldend - v:foldstart)
+    let line_space = winwidth(0) - number_length - len(fold_info)
+    let view_col = winsaveview()["leftcol"]
+    if len(line) > line_space
+	let line = strpart(line, view_col, line_space - 4) . "... "
     else
-	let prefix_length = indent_level
-	let prefix = ""
+	let line = strpart(line, view_col)
     endif
-    let line_length = len(line)
-    let fold_info = "+" . (v:foldend - v:foldstart) . " "
-    let suffix_length = winwidth(0) - number_length - prefix_length - line_length - len(fold_info)
-    let suffix = repeat(" ", suffix_length)
-    return prefix . line . suffix . fold_info
+    let spacing = repeat(" ", max([0, line_space - len(line)]))
+    return line . spacing . fold_info
 endfunction
 setlocal   foldexpr=JournalFoldExpr(v:lnum)
 setlocal   foldmethod=expr
