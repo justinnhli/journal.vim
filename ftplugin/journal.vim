@@ -19,7 +19,12 @@ function! JournalFoldText()
     let indent_level = IndentLevel(v:foldstart)
     let number_length = getwinvar(0, '&number') * getwinvar(0, '&numberwidth')
     let line = repeat(" ", indent_level * &tabstop) . strpart(getline(v:foldstart), indent_level)
-    let fold_info = "+" . (v:foldend - v:foldstart)
+    let lines_folded = (v:foldend - v:foldstart)
+    if lines_folded
+	let fold_info = "+" . lines_folded
+    else
+	let fold_info = ""
+    endif
     let line_space = winwidth(0) - number_length - len(fold_info)
     let view_col = winsaveview()["leftcol"]
     if len(line) > line_space
