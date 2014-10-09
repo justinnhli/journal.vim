@@ -66,7 +66,6 @@ command! -buffer -nargs=+ Journal :call s:JournalCommand(<q-args>)
 " }
 
 " mappings {
-inoremap  <buffer>  <C-d>      <C-r>"<C-w><C-w><backspace><backspace>
 nnoremap  <buffer>  <leader>j  q:iJournal -S
 vnoremap  <buffer>  <leader>j  "zyq:iJournal -S "<C-r>z"
 nnoremap  <buffer>  <leader>d  :let search=@/<cr>a!<esc>i<cr><esc>Pj^"_d?,<cr>I<c-w><esc>11l"_x:let @/=search<cr>
