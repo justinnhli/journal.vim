@@ -4,6 +4,7 @@ lcd %:p:h
 function! IndentLevel(lnum)
     return indent(a:lnum) / &shiftwidth
 endfunction
+
 function! JournalFoldExpr(lnum)
     if getline(a:lnum) =~? '\v^\s*$'
 	return '-1'
@@ -18,6 +19,7 @@ function! JournalFoldExpr(lnum)
 	return '>' . next_indent
     endif
 endfunction
+
 function! JournalFoldText()
     let indent_level = IndentLevel(v:foldstart)
     let number_length = getwinvar(0, '&number') * getwinvar(0, '&numberwidth')
