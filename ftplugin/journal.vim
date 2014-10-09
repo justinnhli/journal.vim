@@ -6,17 +6,12 @@ function! IndentLevel(lnum)
 endfunction
 
 function! JournalFoldExpr(lnum)
-    if getline(a:lnum) =~? '\v^\s*$'
-	return '-1'
-    endif
-    let this_indent = IndentLevel(a:lnum)
-    let next_indent = IndentLevel(a:lnum+1)
-    if next_indent == this_indent
-	return this_indent
-    elseif next_indent < this_indent
-	return this_indent
-    elseif next_indent > this_indent
-	return '>' . next_indent
+    if a:lnum == 1
+	return -1
+    elseif getline(a:lnum) =~? '\v^\s*$'
+	return '>' . (IndentLevel(a:lnum-1)+1)
+    else
+	return '>' . (IndentLevel(a:lnum)+1)
     endif
 endfunction
 
