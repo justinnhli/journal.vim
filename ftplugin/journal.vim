@@ -33,6 +33,7 @@ function! JournalFoldText()
     let spacing = repeat(" ", max([0, line_space - len(line)]))
     return line . spacing . fold_info
 endfunction
+
 setlocal   foldexpr=JournalFoldExpr(v:lnum)
 setlocal   foldmethod=expr
 setlocal   foldtext=JournalFoldText()
