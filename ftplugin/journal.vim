@@ -77,5 +77,3 @@ setlocal   fileencoding=utf-8
 setlocal   iskeyword+=-
 setlocal   wrap
 " }
-
-autocmd BufRead,BufNewFile notes.journal syntax match flag '^.\{2000,\}$'
