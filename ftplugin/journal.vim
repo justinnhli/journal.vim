@@ -15,7 +15,7 @@ endfunction
 
 function! JournalFoldText()
     let indent_level = IndentLevel(v:foldstart)
-    let number_length = getwinvar(0, '&number') * getwinvar(0, '&numberwidth')
+    let number_length = (getwinvar(0, '&number') || getwinvar(0, "&relativenumber")) * max([getwinvar(0, '&numberwidth'), float2nr(ceil(log10(line("$"))))+1])
     let line = repeat(" ", indent_level * &tabstop) . strpart(getline(v:foldstart), indent_level)
     let lines_folded = (v:foldend - v:foldstart)
     if lines_folded
