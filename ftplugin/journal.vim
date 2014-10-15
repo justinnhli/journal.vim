@@ -1,5 +1,3 @@
-lcd %:p:h
-
 " folding {
 function! IndentLevel(lnum)
     return indent(a:lnum) / &shiftwidth
@@ -54,10 +52,7 @@ if !exists("*s:JournalCommand")
 	tabnew
 	exe "r!journal.py --ignore ~/journal/notes.journal " . a:args
 	0d
-	setlocal ft=journal
-	setlocal nocursorline
-	setlocal buftype=nowrite
-	setlocal readonly
+	setlocal buftype=nowrite nofoldenable filetype=journal readonly
 	0
     endfunction
 endif
