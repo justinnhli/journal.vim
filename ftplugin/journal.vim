@@ -52,7 +52,7 @@ if !exists("*s:JournalCommand")
 	tabnew
 	exe "r!journal.py --ignore ~/journal/notes.journal " . a:args
 	0d
-	setlocal buftype=nowrite nofoldenable filetype=journal readonly
+	setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly showbreak=
 	0
     endfunction
 endif
