@@ -65,6 +65,7 @@ vnoremap  <buffer>  <leader>j  "zyq:iJournal -S "<C-r>z"
 nnoremap  <buffer>  <leader>d  :let search=@/<cr>a!<esc>i<cr><esc>Pj^"_d?,<cr>I<c-w><esc>11l"_x:let @/=search<cr>
 nnoremap  <buffer>  <leader>D  :r!date '+\%F'<cr>I<c-w><esc>
 nnoremap  <buffer>  <leader>.  :execute "set foldenable foldlevel=".(foldlevel('.')-1)<cr>
+inoremap  <buffer>  <C-d>      <C-r>=strftime("%Y-%m-%d")<cr>
 " }
 
 " other settings {
