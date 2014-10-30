@@ -54,6 +54,6 @@
 	syntax match hyperlink 'http[^ ()]*' contains=@NoSpell
 	highlight hyperlink cterm=underline gui=underline
 
-	syntax match latex '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!' contains=@NoSpell
+	syntax match latex '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell
 	highlight latex ctermfg=gray cterm=underline guifg=gray gui=underline
 " }
