@@ -3,7 +3,6 @@
 	" redefine some standard highlighting groups
 	highlight SpellBad cterm=bold,underline ctermbg=none ctermfg=red gui=bold,underline guifg=red
 	highlight SpellLocal cterm=bold,underline ctermbg=none ctermfg=darkred gui=bold,underline guifg=darkred
-	highlight Folded ctermbg=none ctermfg=gray
 
 	syntax case match
 
