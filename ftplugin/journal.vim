@@ -56,7 +56,7 @@ setlocal   synmaxcol=0
 if !exists("*s:JournalCommand")
     function s:JournalCommand(args)
 	tabnew
-	exe "r!journal.py --ignore ~/journal/notes.journal " . a:args
+	exe "r!journal.py --ignore ~/journal/notes.journal --ignore ponderings.journal " . a:args
 	0d
 	setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly
 	0
