@@ -1,6 +1,6 @@
 " folding {
 function! IndentLevel(lnum)
-    return indent(a:lnum) / &shiftwidth
+    return indent(a:lnum) / &tabstop
 endfunction
 
 function! JournalFoldExpr(lnum)
