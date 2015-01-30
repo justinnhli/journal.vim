@@ -50,5 +50,7 @@
 	highlight hyperlink cterm=underline gui=underline
 
 	syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " latex
+	syntax match subformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
+	syntax match subformat '@[0-9A-Za-z_]\+' contains=@NoSpell " Twitter handles
 	highlight subformat ctermfg=gray cterm=underline guifg=gray gui=underline
 " }
