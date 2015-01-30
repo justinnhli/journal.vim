@@ -1,9 +1,5 @@
 " syntax highlighting {
 
-	" redefine some standard highlighting groups
-	highlight SpellBad cterm=bold,underline ctermbg=none ctermfg=red gui=bold,underline guifg=red
-	highlight SpellLocal cterm=bold,underline ctermbg=none ctermfg=darkred gui=bold,underline guifg=darkred
-
 	syntax case match
 
 	syntax match datetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
