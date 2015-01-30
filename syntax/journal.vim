@@ -5,7 +5,9 @@
 	syntax match datetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
 	highlight link datetime Identifier
 
-	syntax keyword flag FIXME TODO
+	syntax keyword fixme FIXME TODO
+	highlight link fixme Todo
+
 	syntax match flag '(FIXME)' " parenthesized FIXME's
 	syntax match flag '(FIXME [^()]*)' " parenthesized FIXME's with notes
 	syntax match flag ':\@<!([^:()][^()]*$' " unclosed parenthesis
@@ -13,12 +15,12 @@
 	syntax match flag '\[[^]]*$' " unclosed brackets
 	syntax match flag '{[^}]*$' " unclosed braces
 	syntax match flag '[^\t -~]' " non-ASCII characters
-	syntax match flag '\(^[^|]*\)\@<=[ 	]\+$' " unmarked end-of-line blanks
-	syntax match flag '\(^[^|]*\)\@<=  \+' " unmarked multi-space
+	syntax match flag '^\t*[^|]*[ 	]\+$' " unmarked end-of-line blanks
+	syntax match flag '^\t*[^|]*  \+' " unmarked multi-space
 	syntax match flag '^\(\t*\)[^\t]*\zs\n\1\t\{2,\}' " over-indentation
 	syntax match flag '\n\n\t\+' " multiple blank lines
 	syntax match flag '[^\t]\t' " non-indentation tabs
-	syntax match flag '\t ' " mixed indentation
+	syntax match flag '\t\@<= ' " mixed indentation
 	syntax match flag '^ ' " space indentation
 	highlight link flag Error
 
