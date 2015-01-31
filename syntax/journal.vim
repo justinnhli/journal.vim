@@ -6,10 +6,10 @@
 	highlight link datetime Identifier
 
 	syntax keyword fixme FIXME TODO
+	syntax match fixme '(FIXME)' " parenthesized FIXME's
+	syntax match fixme '(FIXME [^()]*)' " parenthesized FIXME's with notes
 	highlight link fixme Todo
 
-	syntax match flag '(FIXME)' " parenthesized FIXME's
-	syntax match flag '(FIXME [^()]*)' " parenthesized FIXME's with notes
 	syntax match flag ':\@<!([^:()][^()]*$' " unclosed parenthesis
 	syntax match flag '^[^(:0-9]*):\@!' " unopened parenthesis
 	syntax match flag '\[[^]]*$' " unclosed brackets
