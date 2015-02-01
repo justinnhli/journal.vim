@@ -17,7 +17,7 @@
 	syntax match flag '[^\t -~]' " non-ASCII characters
 	syntax match flag '^\t*[^|]*[ 	]\+$' " unmarked end-of-line blanks
 	syntax match flag '^\t*[^|]*  \+' " unmarked multi-space
-	syntax match flag '^\(\t*\)[^\t]*\zs\n\1\t\{2,\}' " over-indentation
+	syntax match flag '^\(\t*\)[^\t]*\n\1\t\{2,\}' " over-indentation
 	syntax match flag '\n\n\t\+' " multiple blank lines
 	syntax match flag '[^\t]\t' " non-indentation tabs
 	syntax match flag '\t\@<= ' " mixed indentation
