@@ -1,4 +1,4 @@
-" folding {
+" functions {
 function! IndentLevel(lnum)
     return indent(a:lnum) / &tabstop
 endfunction
@@ -36,6 +36,29 @@ function! JournalFoldText()
     endif
     let spacing = repeat(" ", max([0, line_space - len(line)]))
     return line . spacing . fold_info
+endfunction
+
+" change directory to ancestor with cache files
+function! SetJournalDir(dir)
+    let l:parent_dir = a:dir
+    let l:child_dir = ''
+    let l:found_root = 1
+    while l:parent_dir != l:child_dir
+	let l:found_root = 1
+	for cache_file in ['.metadata', 'tags', '.cache', '.index']
+	    let l:found = globpath(l:parent_dir, l:cache_file)
+	    if !filereadable(l:found)
+		let l:found_root = 0
+		break
+	    endif
+	endfor
+	if l:found_root == 1
+	    exec 'lcd! ' . l:parent_dir
+	    return
+	endif
+	let l:child_dir = l:parent_dir
+	let l:parent_dir = fnamemodify(l:parent_dir, ':h')
+    endwhile
 endfunction
 " }
 
@@ -81,3 +104,5 @@ nnoremap  <buffer>           <leader>D  :r!date '+\%F'<cr>I<c-w><esc>
 nnoremap  <buffer> <silent>  <leader>.  :execute "set foldenable foldlevel=".(IndentLevel('.'))<cr>
 inoremap  <buffer>           <C-d>      <C-r>=strftime("%Y-%m-%d")<cr>
 " }
+
+call SetJournalDir(expand("%:p:h"))
