@@ -37,19 +37,6 @@ function! JournalFoldText()
     let spacing = repeat(" ", max([0, line_space - len(line)]))
     return line . spacing . fold_info
 endfunction
-
-setlocal   foldexpr=JournalFoldExpr(v:lnum)
-setlocal   foldmethod=expr
-setlocal   foldtext=JournalFoldText()
-" }
-
-" spellcheck {
-setlocal   spelllang=en_us
-setlocal   spell
-" }
-
-" syntax highlighting {
-setlocal   synmaxcol=0
 " }
 
 " commands {
@@ -65,6 +52,27 @@ endif
 command! -buffer -nargs=+ Journal :call s:JournalCommand(<q-args>)
 " }
 
+" settings {
+setlocal noexpandtab
+setlocal   fileencoding=utf-8
+setlocal   iskeyword+=-
+setlocal   wrap
+if has("linebreak") && v:version > 703
+    setlocal   breakindent
+endif
+if has('folding')
+    setlocal nofoldenable
+    setlocal   foldexpr=JournalFoldExpr(v:lnum)
+    setlocal   foldmethod=expr
+    setlocal   foldtext=JournalFoldText()
+endif
+if has('syntax')
+    setlocal   spelllang=en_us
+    setlocal   spell
+    setlocal   synmaxcol=0
+endif
+" }
+
 " mappings {
 nnoremap  <buffer>           <leader>j  q:iJournal -S
 vnoremap  <buffer>           <leader>j  "zyq:iJournal -S "<C-r>z"
@@ -72,11 +80,4 @@ nnoremap  <buffer> <silent>  <leader>d  :let search=@/<cr>a!<esc>i<cr><esc>Pj^"_
 nnoremap  <buffer>           <leader>D  :r!date '+\%F'<cr>I<c-w><esc>
 nnoremap  <buffer> <silent>  <leader>.  :execute "set foldenable foldlevel=".(IndentLevel('.'))<cr>
 inoremap  <buffer>           <C-d>      <C-r>=strftime("%Y-%m-%d")<cr>
-" }
-
-" other settings {
-setlocal noexpandtab
-setlocal   fileencoding=utf-8
-setlocal   iskeyword+=-
-setlocal   wrap
 " }
