@@ -79,6 +79,7 @@ command! -buffer -nargs=+ Journal :call s:JournalCommand(<q-args>)
 setlocal noexpandtab
 setlocal   fileencoding=utf-8
 setlocal   iskeyword+=-
+setlocal   tags+=./.tags,.tags
 setlocal   wrap
 if has("linebreak") && v:version > 703
     setlocal   breakindent
