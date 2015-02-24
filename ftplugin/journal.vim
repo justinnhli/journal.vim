@@ -45,7 +45,7 @@ function! SetJournalDir(dir)
     let l:found_root = 1
     while l:parent_dir != l:child_dir
 	let l:found_root = 1
-	for cache_file in ['.metadata', 'tags', '.cache', '.index']
+	for cache_file in ['.cache', '.index', '.metadata', '.tags']
 	    let l:found = globpath(l:parent_dir, l:cache_file)
 	    if !filereadable(l:found)
 		let l:found_root = 0
