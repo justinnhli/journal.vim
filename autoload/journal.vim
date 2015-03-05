@@ -10,10 +10,10 @@ function! journal#JournalFoldExpr(lnum)
     if getline(a:lnum) =~? '\v^\s*$'
 	return '>' . (journal#IndentLevel(a:lnum-1)+1)
     else
-	let cur_indent = journal#IndentLevel(a:lnum)
-	let next_indent = journal#IndentLevel(a:lnum+1)
-	if next_indent <= cur_indent
-	    return cur_indent
+	let l:cur_indent = journal#IndentLevel(a:lnum)
+	let l:next_indent = journal#IndentLevel(a:lnum+1)
+	if l:next_indent <= l:cur_indent
+	    return l:cur_indent
 	else
 	    return '>' . (journal#IndentLevel(a:lnum)+1)
 	endif
@@ -21,24 +21,24 @@ function! journal#JournalFoldExpr(lnum)
 endfunction
 
 function! journal#JournalFoldText()
-    let indent_level = journal#IndentLevel(v:foldstart)
-    let number_length = (getwinvar(0, '&number') || getwinvar(0, "&relativenumber")) * max([getwinvar(0, '&numberwidth'), float2nr(ceil(log10(line("$"))))+1])
-    let line = repeat(" ", indent_level * &tabstop) . strpart(getline(v:foldstart), indent_level)
-    let lines_folded = (v:foldend - v:foldstart)
-    if lines_folded
-	let fold_info = "+" . lines_folded
+    let l:lines_folded = (v:foldend - v:foldstart)
+    if l:lines_folded
+	let l:fold_info = "+" . l:lines_folded
     else
-	let fold_info = ""
+	let l:fold_info = ""
     endif
-    let line_space = winwidth(0) - number_length - len(fold_info)
-    let view_col = winsaveview()["leftcol"]
-    if len(line) > line_space
-	let line = strpart(line, view_col, line_space - 4) . "... "
-    else
-	let line = strpart(line, view_col)
+    let l:number_width = 0
+    if getwinvar(0, '&number') || getwinvar(0, "&relativenumber")
+        let l:number_width = max([getwinvar(0, '&numberwidth'), float2nr(ceil(log10(line("$")))) + 1])
     endif
-    let spacing = repeat(" ", max([0, line_space - len(line)]))
-    return line . spacing . fold_info
+    let l:line_width = winwidth(0) - l:number_width - len(l:fold_info)
+    let l:indent_level = journal#IndentLevel(v:foldstart)
+    let l:text = strpart(repeat(" ", l:indent_level * &tabstop) . strpart(getline(v:foldstart), l:indent_level), winsaveview()["leftcol"])
+    if len(l:text) > l:line_width
+	let l:text = strpart(l:text, 0, l:line_width - 4) . "... "
+    endif
+    let l:spacing = repeat(" ", l:line_width - len(l:text))
+    return l:text . l:spacing . l:fold_info
 endfunction
 
 " change directory to ancestor with cache files
