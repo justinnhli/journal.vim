@@ -6,7 +6,6 @@ endif
 setlocal noexpandtab
 setlocal   fileencoding=utf-8
 setlocal   iskeyword+=-
-setlocal   tags+=./.tags,.tags
 setlocal   wrap
 if exists('&breakindent')
     setlocal   breakindent
