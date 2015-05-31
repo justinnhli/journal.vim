@@ -26,8 +26,6 @@ endif
 " mappings {
 nnoremap  <buffer>           <leader>j  q:iJournal -S
 vnoremap  <buffer>           <leader>j  "zyq:iJournal -S "<C-r>z"
-nnoremap  <buffer> <silent>  <leader>d  :let search=@/<cr>a!<esc>i<cr><esc>Pj^"_d?,<cr>I<c-w><esc>11l"_x:let @/=search<cr>
-nnoremap  <buffer>           <leader>D  :r!date '+\%F'<cr>I<c-w><esc>
 nnoremap  <buffer> <silent>  <leader>.  :execute "set foldenable foldlevel=".(journal#IndentLevel('.'))<cr>
 inoremap  <buffer>           <C-d>      <c-r>=strftime("%Y-%m-%d")<cr>
 " }
