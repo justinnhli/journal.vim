@@ -44,12 +44,11 @@ highlight link outerQuote Number
 syntax match reference '\[[a-zA-Z-]\+\( and [a-zA-Z-]\+\| et al.\)* ([0-9]\{4\})\]' contains=@NoSpell
 syntax match reference '^\s*[a-zA-Z-]\+\(, [a-zA-Z-]\+\( [a-zA-z]\+\)*\)* ([0-9]\{4\})\. .*[.?]$' contains=@NoSpell
 syntax match reference '[[:alnum:]]\@<![a-zA-Z]\+[0-9]\{4\}\([A-Z][a-zA-Z]*\)[[:alnum:]]\@!' contains=@NoSpell
-highlight link reference Function
+highlight link reference Statement
 
-syntax match hyperlink 'http[^ ()]*' contains=@NoSpell
-highlight hyperlink cterm=underline gui=underline
 
+syntax match subformat 'http[^ ()]*' contains=@NoSpell " link
 syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " latex
 syntax match subformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
 syntax match subformat '[^[:blank:]]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " Twitter handles
-highlight subformat ctermfg=gray cterm=underline guifg=gray gui=underline
+highlight link subformat Special
