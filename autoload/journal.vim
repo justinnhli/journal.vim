@@ -1,5 +1,5 @@
 if !exists("g:loaded_jrnl_vim")
-  finish
+    finish
 endif
 
 function! journal#IndentLevel(lnum)
@@ -8,24 +8,24 @@ endfunction
 
 function! journal#JournalFoldExpr(lnum)
     if getline(a:lnum) =~? '\v^\s*$'
-	return '>' . (journal#IndentLevel(a:lnum-1)+1)
+        return '>' . (journal#IndentLevel(a:lnum-1)+1)
     else
-	let l:cur_indent = journal#IndentLevel(a:lnum)
-	let l:next_indent = journal#IndentLevel(a:lnum+1)
-	if l:next_indent <= l:cur_indent
-	    return l:cur_indent
-	else
-	    return '>' . (journal#IndentLevel(a:lnum)+1)
-	endif
+        let l:cur_indent = journal#IndentLevel(a:lnum)
+        let l:next_indent = journal#IndentLevel(a:lnum+1)
+        if l:next_indent <= l:cur_indent
+            return l:cur_indent
+        else
+            return '>' . (journal#IndentLevel(a:lnum)+1)
+        endif
     endif
 endfunction
 
 function! journal#JournalFoldText()
     let l:lines_folded = (v:foldend - v:foldstart)
     if l:lines_folded
-	let l:fold_info = "+" . l:lines_folded
+        let l:fold_info = "+" . l:lines_folded
     else
-	let l:fold_info = ""
+        let l:fold_info = ""
     endif
     let l:number_width = 0
     if getwinvar(0, '&number') || getwinvar(0, "&relativenumber")
@@ -35,7 +35,7 @@ function! journal#JournalFoldText()
     let l:indent_level = journal#IndentLevel(v:foldstart)
     let l:text = strpart(repeat(" ", l:indent_level * &tabstop) . strpart(getline(v:foldstart), l:indent_level), winsaveview()["leftcol"])
     if len(l:text) > l:line_width
-	let l:text = strpart(l:text, 0, l:line_width - 4) . "... "
+        let l:text = strpart(l:text, 0, l:line_width - 4) . "... "
     endif
     let l:spacing = repeat(" ", l:line_width - len(l:text))
     return l:text . l:spacing . l:fold_info
@@ -47,20 +47,20 @@ function! journal#SetJournalDir(dir)
     let l:child_dir = ''
     let l:found_root = 1
     while l:parent_dir != l:child_dir
-	let l:found_root = 1
-	for cache_file in ['.cache', '.index', '.metadata', '.tags']
-	    let l:found = globpath(l:parent_dir, l:cache_file)
-	    if !filereadable(l:found)
-		let l:found_root = 0
-		break
-	    endif
-	endfor
-	if l:found_root == 1
-	    exec 'lcd! ' . l:parent_dir
-	    return
-	endif
-	let l:child_dir = l:parent_dir
-	let l:parent_dir = fnamemodify(l:parent_dir, ':h')
+        let l:found_root = 1
+        for cache_file in ['.cache', '.index', '.metadata', '.tags']
+            let l:found = globpath(l:parent_dir, l:cache_file)
+            if !filereadable(l:found)
+                let l:found_root = 0
+                break
+            endif
+        endfor
+        if l:found_root == 1
+            exec 'lcd! ' . l:parent_dir
+            return
+        endif
+        let l:child_dir = l:parent_dir
+        let l:parent_dir = fnamemodify(l:parent_dir, ':h')
     endwhile
 endfunction
 " }
@@ -69,7 +69,7 @@ function! journal#JournalCommand(args)
     tabnew
     let l:command = 'journal.py'
     for ignore_file in g:jrnl_ignore_files
-      let l:command = l:command . ' --ignore='.expand(ignore_file)
+        let l:command = l:command . ' --ignore='.expand(ignore_file)
     endfor
     exe 'r!' . l:command . ' ' . a:args
     0d

@@ -1,5 +1,5 @@
 if !exists("g:loaded_jrnl_vim")
-  finish
+    finish
 endif
 
 " settings {
