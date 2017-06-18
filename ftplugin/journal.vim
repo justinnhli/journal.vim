@@ -3,6 +3,7 @@ if !exists("g:loaded_jrnl_vim")
 endif
 
 " settings {
+setlocal   complete=.,t
 setlocal noexpandtab
 setlocal   fileencoding=utf-8
 setlocal   iskeyword+=-
