@@ -24,6 +24,10 @@ if has('syntax')
 endif
 " }
 
+" autocmds {
+autocmd BufWritePre <buffer> %s/\s\+$//e
+" }
+
 " mappings {
 nnoremap  <buffer>           <leader>j  q:iJournal -S
 vnoremap  <buffer>           <leader>j  "zyq:iJournal -S "<C-r>z"
