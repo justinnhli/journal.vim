@@ -76,3 +76,9 @@ function! journal#JournalCommand(args)
     setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly
     0
 endfunction
+
+function! journal#StripTrailingSpace()
+    let l:winview = winsaveview()
+    %s#\s\+$##e
+    call winrestview(l:winview)
+endfunction
