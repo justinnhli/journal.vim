@@ -46,9 +46,10 @@ highlight link reference Statement
 
 syntax match subformat 'http[^ ()]*' contains=@NoSpell " link
 syntax match subformat '[._0-9A-Za-z]\+@[_0-9A-Za-z]\+\(\.[_0-9A-Za-z]\+\)\+' contains=@NoSpell " email
-syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " latex
 syntax match subformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
 syntax match subformat '[^[:blank:]]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " Twitter handles
+syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline code
+syntax region subformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
 highlight link subformat Special
 
 syntax cluster types contains=datetime,flag,subformat
