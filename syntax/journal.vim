@@ -13,14 +13,16 @@ syntax match flag '^[^(:0-9]*):\@!' " unopened parenthesis
 syntax match flag '\[[^]]*$' " unclosed brackets
 syntax match flag '{[^}]*$' " unclosed braces
 syntax match flag '[^\t -~]' " non-ASCII characters
-syntax match flag '^\t*[^|]*[ 	]\+$'ms=e " unmarked end-of-line blanks
-syntax match flag '^\t*[^|]*  \+'ms=e-1 " unmarked multi-space
-syntax match flag '^\(\t*\)[^\t]*\n\1\t\{2,\}' " over-indentation
-syntax match flag '\n\n\t\+' " multiple blank lines
-syntax match flag '[^\t]\t' " non-indentation tabs
-syntax match flag '\t\@<= ' " mixed indentation
-syntax match flag '^ ' " space indentation
 highlight link flag Error
+
+syntax match spaceFlag '^\t*[^|]*[ 	]\+$'ms=e " unmarked end-of-line blanks
+syntax match spaceFlag '^\t*[^|]*  \+'ms=e-1 " unmarked multi-space
+syntax match spaceFlag '^\(\t*\)[^\t]*\n\1\t\{2,\}' " over-indentation
+syntax match spaceFlag '\n\n\t\+' " multiple blank lines
+syntax match spaceFlag '[^\t]\t' " non-indentation tabs
+syntax match spaceFlag '\t\@<= ' " mixed indentation
+syntax match spaceFlag '^ ' " space indentation
+highlight spaceFlag cterm=underline ctermfg=203 gui=underline guifg=#e27878 " color from Error guifg in iceberg.vim
 
 syntax region strong matchgroup=strongMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types
 highlight strong cterm=bold gui=bold
@@ -52,4 +54,4 @@ syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 co
 syntax region subformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
 highlight link subformat Special
 
-syntax cluster types contains=datetime,flag,subformat
+syntax cluster types contains=datetime,flag,spaceFlag,subformat
