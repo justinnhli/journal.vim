@@ -42,7 +42,7 @@ function! journal#JournalFoldText()
 endfunction
 
 " change directory to ancestor with cache files
-function! journal#SetJournalDir(dir)
+function! journal#GetJournalDir(dir)
     let l:parent_dir = a:dir
     let l:child_dir = ''
     let l:found_root = 1
@@ -56,18 +56,19 @@ function! journal#SetJournalDir(dir)
             endif
         endfor
         if l:found_root == 1
-            exec 'lcd! ' . l:parent_dir
-            return
+            return l:parent_dir
         endif
         let l:child_dir = l:parent_dir
         let l:parent_dir = fnamemodify(l:parent_dir, ':h')
     endwhile
+    return a:dir
 endfunction
 " }
 
 function! journal#JournalCommand(args)
     tabnew
     let l:command = 'journal.py'
+    let l:command = l:command . ' --directory="'.journal#GetJournalDir(expand('%:p:h')).'"'
     for ignore_file in g:jrnl_ignore_files
         let l:command = l:command . ' --ignore='.expand(ignore_file)
     endfor
