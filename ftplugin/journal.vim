@@ -40,4 +40,4 @@ command! -buffer -nargs=+ Journal :call journal#JournalCommand(<q-args>)
 " }
 
 " change directory
-exec 'lcd! '.journal#SetJournalDir(expand('%:p:h'))
+exec 'lcd! '.journal#GetJournalDir(expand('%:p:h'))
