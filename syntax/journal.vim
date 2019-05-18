@@ -1,3 +1,20 @@
+function! s:HighlightGroupAttribute(group, attr)
+	return matchstr(execute('highlight '.a:group), a:attr.'=\zs\S*')
+endfunction
+
+function! s:InheritHighlight(child, parent)
+	" this only works if the parent is not linked to something else
+	for s:term in ['cterm', 'gui']
+		for s:aspect in ['fg', 'bg']
+			let s:attr = s:term . s:aspect
+			let s:value = s:HighlightGroupAttribute(a:parent, s:attr)
+			if s:value != ''
+				execute('highlight '.a:child.' '.s:attr.'='.s:value)
+			endif
+		endfor
+	endfor
+endfunction
+
 syntax case match
 
 syntax match datetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
@@ -31,14 +48,16 @@ highlight link strongMark strong
 syntax region innerQuote matchgroup=innerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerStrong,@types contained
 syntax region outerQuote matchgroup=outerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerStrong,@types 
 highlight link innerQuote String
-highlight link outerQuote Number
+highlight link outerQuote Constant
 
 syntax region innerStrong matchgroup=innerStrongMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
 highlight innerStrong cterm=bold gui=bold
+call s:InheritHighlight('innerStrong', 'String')
 highlight link innerStrongMark innerStrong
 
 syntax region outerStrong matchgroup=outerStrongMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
 highlight outerStrong cterm=bold gui=bold
+call s:InheritHighlight('outerStrong', 'Constant')
 highlight link outerStrongMark outerStrong
 
 syntax match reference '\[[a-zA-Z-]\+\( and [a-zA-Z-]\+\| et al.\)* ([0-9]\{4\})\]' contains=@NoSpell
