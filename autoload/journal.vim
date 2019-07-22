@@ -74,7 +74,7 @@ function! journal#JournalCommand(args)
     endfor
     exe 'r!' . l:command . ' ' . a:args
     0d
-    setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly
+    setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly nomodifiable
     0
 endfunction
 
