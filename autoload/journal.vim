@@ -78,8 +78,9 @@ function! journal#JournalCommand(args)
     0
 endfunction
 
-function! journal#StripTrailingSpace()
+function! journal#PreWriteAutocmd()
     let l:winview = winsaveview()
     %s#\s\+$##e
+    %retab!
     call winrestview(l:winview)
 endfunction

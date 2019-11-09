@@ -25,7 +25,7 @@ endif
 " }
 
 " autocmds {
-autocmd BufWritePre <buffer> :call journal#StripTrailingSpace()
+autocmd BufWritePre <buffer> :call journal#PreWriteAutocmd()
 " }
 
 " mappings {
