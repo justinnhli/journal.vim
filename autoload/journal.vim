@@ -81,6 +81,6 @@ endfunction
 function! journal#PreWriteAutocmd()
     let l:winview = winsaveview()
     %s#\s\+$##e
-    %retab!
+    %retab
     call winrestview(l:winview)
 endfunction
