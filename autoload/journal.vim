@@ -7,16 +7,24 @@ function! journal#IndentLevel(lnum)
 endfunction
 
 function! journal#JournalFoldExpr(lnum)
-    if getline(a:lnum) =~? '\v^\s*$'
-        return '>' . (journal#IndentLevel(a:lnum-1)+1)
+    " if a line is all whitespace,
+    " use the foldlevel of the first subsequent non-whitespace line
+    if getline(a:lnum) =~ '\v^\s*$'
+        let l:lnum = a:lnum
+        while l:lnum < line('$') && getline(l:lnum) =~ '\v^\s*$'
+            let l:lnum += 1
+        endwhile
+        return journal#IndentLevel(l:lnum)
+    endif
+    " otherwise, mark each line as the start of a fold at level indent + 1
+    " this is to work with foldtext to hide the folded text completely,
+    " and so text at this level is not considered "folded"
+    let l:curr_indent = journal#IndentLevel(a:lnum)
+    let l:next_indent = journal#IndentLevel(a:lnum + 1)
+    if l:next_indent > l:curr_indent
+        return '>' . (l:curr_indent + 1)
     else
-        let l:cur_indent = journal#IndentLevel(a:lnum)
-        let l:next_indent = journal#IndentLevel(a:lnum+1)
-        if l:next_indent <= l:cur_indent
-            return l:cur_indent
-        else
-            return '>' . (journal#IndentLevel(a:lnum)+1)
-        endif
+        return l:curr_indent
     endif
 endfunction
 
