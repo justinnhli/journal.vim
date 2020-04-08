@@ -28,25 +28,37 @@ function! journal#JournalFoldExpr(lnum)
     endif
 endfunction
 
+function! journal#EdtiableAreaWidth()
+    " from https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script/26318602#26318602
+    redir =>a |exe "sil sign place buffer=".bufnr('')|redir end
+    let signlist=split(a, '\n')
+    return winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn - (len(signlist) > 2 ? 2 : 0)
+endfunction
+
 function! journal#JournalFoldText()
-    let l:lines_folded = (v:foldend - v:foldstart)
-    if l:lines_folded
-        let l:fold_info = "+" . l:lines_folded
-    else
-        let l:fold_info = ""
+    " calculate the first non-blank line of the fold
+    let l:foldtextstart = v:foldstart
+    while l:foldtextstart < line('$') && getline(l:foldtextstart) =~ '\v^\s*$'
+        let l:foldtextstart += 1
+    endwhile
+    " calculate the indent level
+    let l:indent_level = journal#IndentLevel(l:foldtextstart)
+    " create the indent string (necessary as tabs converted to spaces)
+    let l:indent = repeat(" ", l:indent_level * &tabstop)
+    " create the text string
+    let l:text = strpart(getline(l:foldtextstart), l:indent_level)
+    " create a string to indicate the number of lines folded
+    let l:fold_info = "+" . (v:foldend - v:foldstart)
+    " calculate the maximum amount of showable text
+    let l:max_text_length = journal#EdtiableAreaWidth() - len(l:indent) - len(l:fold_info)
+    " truncate the text if necessary
+    if len(l:text) > l:max_text_length
+        let l:text = strpart(l:text, 0, l:max_text_length - 4) . "... "
     endif
-    let l:number_width = 0
-    if getwinvar(0, '&number') || getwinvar(0, "&relativenumber")
-        let l:number_width = max([getwinvar(0, '&numberwidth'), float2nr(ceil(log10(line("$")))) + 1])
-    endif
-    let l:line_width = winwidth(0) - l:number_width - len(l:fold_info)
-    let l:indent_level = journal#IndentLevel(v:foldstart)
-    let l:text = strpart(repeat(" ", l:indent_level * &tabstop) . strpart(getline(v:foldstart), l:indent_level), winsaveview()["leftcol"])
-    if len(l:text) > l:line_width
-        let l:text = strpart(l:text, 0, l:line_width - 4) . "... "
-    endif
-    let l:spacing = repeat(" ", l:line_width - len(l:text))
-    return l:text . l:spacing . l:fold_info
+    " create a spacer string
+    let l:spacer = repeat(" ", l:max_text_length - len(l:text))
+    " return the final result
+    return l:indent . l:text . l:spacer . l:fold_info
 endfunction
 
 " change directory to ancestor with cache files
