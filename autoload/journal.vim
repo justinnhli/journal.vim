@@ -10,11 +10,7 @@ function! journal#JournalFoldExpr(lnum)
     " if a line is all whitespace,
     " use the foldlevel of the first subsequent non-whitespace line
     if getline(a:lnum) =~ '\v^\s*$'
-        let l:lnum = a:lnum
-        while l:lnum < line('$') && getline(l:lnum) =~ '\v^\s*$'
-            let l:lnum += 1
-        endwhile
-        return journal#IndentLevel(l:lnum)
+        return journal#IndentLevel(nextnonblank(a:lnum))
     endif
     " otherwise, mark each line as the start of a fold at level indent + 1
     " this is to work with foldtext to hide the folded text completely,
@@ -37,10 +33,7 @@ endfunction
 
 function! journal#JournalFoldText()
     " calculate the first non-blank line of the fold
-    let l:foldtextstart = v:foldstart
-    while l:foldtextstart < line('$') && getline(l:foldtextstart) =~ '\v^\s*$'
-        let l:foldtextstart += 1
-    endwhile
+    let l:foldtextstart = nextnonblank(v:foldstart)
     " calculate the indent level
     let l:indent_level = journal#IndentLevel(l:foldtextstart)
     " create the indent string (necessary as tabs converted to spaces)
