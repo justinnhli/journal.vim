@@ -41,7 +41,11 @@ syntax match spaceFlag '\t\@<= ' " mixed indentation
 syntax match spaceFlag '^ ' " space indentation
 highlight spaceFlag cterm=underline ctermfg=203 gui=underline guifg=#e27878 " color from Error guifg in iceberg.vim
 
-syntax region strong matchgroup=strongMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types
+syntax region emph matchgroup=emphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types
+highlight emph cterm=italic gui=italic
+highlight link emphMark emph
+
+syntax region strong matchgroup=strongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types
 highlight strong cterm=bold gui=bold
 highlight link strongMark strong
 
@@ -50,12 +54,23 @@ syntax region outerQuote matchgroup=outerQuote start='[^[(/ \t]\@<!"' end='[[:bl
 highlight link innerQuote String
 highlight link outerQuote Constant
 
-syntax region innerStrong matchgroup=innerStrongMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+syntax region innerEmph matchgroup=innerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+highlight innerEmph cterm=bold gui=bold
+call s:InheritHighlight('innerEmph', 'String')
+highlight link innerEmphMark innerEmph
+
+syntax region outerEmph matchgroup=outerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+highlight outerEmph cterm=bold gui=bold
+call s:InheritHighlight('outerEmph', 'Constant')
+highlight link outerEmphMark outerEmph
+
+syntax region innerStrong matchgroup=innerStrongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
 highlight innerStrong cterm=bold gui=bold
 call s:InheritHighlight('innerStrong', 'String')
 highlight link innerStrongMark innerStrong
 
-syntax region outerStrong matchgroup=outerStrongMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+syntax region outerStrong matchgroup=outerStrongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+
 highlight outerStrong cterm=bold gui=bold
 call s:InheritHighlight('outerStrong', 'Constant')
 highlight link outerStrongMark outerStrong
