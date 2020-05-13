@@ -49,18 +49,18 @@ syntax region strong matchgroup=strongMark start='[__[:alnum:]]\@<!__[_ ]\@!' en
 highlight strong cterm=bold gui=bold
 highlight link strongMark strong
 
-syntax region innerQuote matchgroup=innerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerStrong,@types contained
-syntax region outerQuote matchgroup=outerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerStrong,@types
+syntax region innerQuote matchgroup=innerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerEmph,innerStrong,@types contained
+syntax region outerQuote matchgroup=outerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerEmph,outerStrong,@types
 highlight link innerQuote String
 highlight link outerQuote Constant
 
 syntax region innerEmph matchgroup=innerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
-highlight innerEmph cterm=bold gui=bold
+highlight innerEmph cterm=italic gui=italic
 call s:InheritHighlight('innerEmph', 'String')
 highlight link innerEmphMark innerEmph
 
 syntax region outerEmph matchgroup=outerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
-highlight outerEmph cterm=bold gui=bold
+highlight outerEmph cterm=italic gui=italic
 call s:InheritHighlight('outerEmph', 'Constant')
 highlight link outerEmphMark outerEmph
 
@@ -70,7 +70,6 @@ call s:InheritHighlight('innerStrong', 'String')
 highlight link innerStrongMark innerStrong
 
 syntax region outerStrong matchgroup=outerStrongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
-
 highlight outerStrong cterm=bold gui=bold
 call s:InheritHighlight('outerStrong', 'Constant')
 highlight link outerStrongMark outerStrong
