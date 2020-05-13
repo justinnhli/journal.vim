@@ -21,12 +21,12 @@ endif
 " }
 
 " autocmds {
-autocmd BufWritePre <buffer> :call journal#PreWriteAutocmd()
+autocmd  BufWritePre  <buffer>  call journal#PreWriteAutocmd()
 " }
 
 " commands {
-command! -buffer -nargs=+ Journal :call journal#JournalCommand(<q-args>)
+command! -buffer -nargs=+  Journal  call journal#JournalCommand(<q-args>)
 " }
 
 " change directory
-exec 'lcd! '.journal#GetJournalDir(expand('%:p:h'))
+exec 'lcd! ' . journal#GetJournalDir(expand('%:p:h'))

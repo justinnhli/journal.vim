@@ -22,7 +22,7 @@ endfunction
 
 function! s:editable_area_width()
     " from https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script/26318602#26318602
-    redir =>a |exe "sil sign place buffer=".bufnr('')|redir end
+    redir => a | execute 'silent sign place buffer=' . bufnr('') | redir end
     let signlist=split(a, '\n')
     return winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn - (len(signlist) > 2 ? 2 : 0)
 endfunction
@@ -33,19 +33,19 @@ function! journal#JournalFoldText()
     " calculate the indent level
     let l:indent_level = s:indent_level(l:foldtextstart)
     " create the indent string (necessary as tabs converted to spaces)
-    let l:indent = repeat(" ", l:indent_level * &tabstop)
+    let l:indent = repeat(' ', l:indent_level * &tabstop)
     " create the text string
     let l:text = strpart(getline(l:foldtextstart), l:indent_level)
     " create a string to indicate the number of lines folded
-    let l:fold_info = "+" . (v:foldend - v:foldstart)
+    let l:fold_info = '+' . (v:foldend - v:foldstart)
     " calculate the maximum amount of showable text
     let l:max_text_length = s:editable_area_width() - len(l:indent) - len(l:fold_info)
     " truncate the text if necessary
     if len(l:text) > l:max_text_length
-        let l:text = strpart(l:text, 0, l:max_text_length - 4) . "... "
+        let l:text = strpart(l:text, 0, l:max_text_length - 4) . '... '
     endif
     " create a spacer string
-    let l:spacer = repeat(" ", l:max_text_length - len(l:text))
+    let l:spacer = repeat(' ', l:max_text_length - len(l:text))
     " return the final result
     return l:indent . l:text . l:spacer . l:fold_info
 endfunction
@@ -72,16 +72,14 @@ function! journal#GetJournalDir(dir)
     endwhile
     return a:dir
 endfunction
-" }
 
 function! journal#JournalCommand(args)
     tabnew
-    let l:command = 'journal.py'
-    let l:command = l:command . ' --directory="'.journal#GetJournalDir(expand('%:p:h')).'"'
+    let l:command = 'journal.py --directory="' . journal#GetJournalDir(expand('%:p:h')) . '"'
     for ignore_file in g:jrnl_ignore_files
         let l:command = l:command . ' --ignore='.expand(ignore_file)
     endfor
-    exe 'r!' . l:command . ' ' . a:args
+    execute 'r!' . l:command . ' ' . a:args
     0d
     setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly nomodifiable
     0
