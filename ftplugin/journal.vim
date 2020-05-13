@@ -28,13 +28,6 @@ endif
 autocmd BufWritePre <buffer> :call journal#PreWriteAutocmd()
 " }
 
-" mappings {
-nnoremap  <buffer>           <leader>j  q:iJournal -S
-vnoremap  <buffer>           <leader>j  "zyq:iJournal -S "<C-r>z"
-nnoremap  <buffer> <silent>  <leader>.  :execute "set foldenable foldlevel=".(journal#IndentLevel('.'))<cr>
-inoremap  <buffer>           <C-d>      <c-r>=strftime("%Y-%m-%d")<cr>
-" }
-
 " commands {
 command! -buffer -nargs=+ Journal :call journal#JournalCommand(<q-args>)
 " }
