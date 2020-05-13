@@ -1,7 +1,3 @@
-if !exists("g:loaded_jrnl_vim")
-    finish
-endif
-
 function! journal#IndentLevel(lnum)
     return indent(a:lnum) / &tabstop
 endfunction

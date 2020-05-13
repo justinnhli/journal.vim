@@ -1,7 +1,3 @@
-if !exists("g:loaded_jrnl_vim")
-    finish
-endif
-
 " settings {
 setlocal   complete=.,t
 setlocal noexpandtab
