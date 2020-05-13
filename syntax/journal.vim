@@ -21,8 +21,8 @@ syntax match datetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|W
 highlight link datetime Identifier
 
 syntax keyword fixme FIXME TODO
-syntax match fixme '(FIXME)' " parenthesized FIXME's
-syntax match fixme '(FIXME [^()]*)' " parenthesized FIXME's with notes
+syntax match fixme '(FIXME\>[^()]*)' " parenthesized FIXMEs
+syntax match fixme '\[FIXME\>[^]]*\]' " bracketed FIXMEs with notes
 highlight link fixme Todo
 
 syntax match flag ':\@<!([^:()][^()]*$' " unclosed parenthesis
