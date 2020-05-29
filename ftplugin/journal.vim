@@ -20,6 +20,17 @@ if has('syntax')
 endif
 " }
 
+" grepprg {
+let s:command = 'journal.py --directory=' .. journal#GetJournalDir(expand('%:p:h'))
+for ignore_file in g:jrnl_ignore_files
+       let s:command = s:command .. ' --ignore=' .. expand(ignore_file)
+endfor
+let s:command = s:command .. ' --vimgrep'
+let s:command = substitute(s:command, ' ', '\\ ', 'g')
+execute 'setlocal grepprg=' .. s:command
+setlocal grepformat=%f:%l:%c:%m
+" }
+
 " autocmds {
 autocmd  BufWritePre  <buffer>  call journal#PreWriteAutocmd()
 " }
