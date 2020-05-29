@@ -1,15 +1,15 @@
 function! s:HighlightGroupAttribute(group, attr)
-	return matchstr(execute('highlight ' . a:group), a:attr . '=\zs\S*')
+	return matchstr(execute('highlight ' .. a:group), a:attr .. '=\zs\S*')
 endfunction
 
 function! s:InheritHighlight(child, parent)
 	" this only works if the parent is not linked to something else
 	for s:term in ['cterm', 'gui']
 		for s:aspect in ['fg', 'bg']
-			let s:attr = s:term . s:aspect
+			let s:attr = s:term .. s:aspect
 			let s:value = s:HighlightGroupAttribute(a:parent, s:attr)
 			if s:value != ''
-				execute('highlight ' . a:child . ' ' . s:attr . '=' . s:value)
+				execute('highlight ' .. a:child .. ' ' .. s:attr .. '=' .. s:value)
 			endif
 		endfor
 	endfor
