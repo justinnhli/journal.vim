@@ -3,20 +3,27 @@ function! s:indent_level(lnum)
 endfunction
 
 function! journal#JournalFoldExpr(lnum)
-    " if a line is all whitespace,
-    " use the foldlevel of the first subsequent non-whitespace line
-    if getline(a:lnum) =~ '\v^\s*$'
-        return s:indent_level(nextnonblank(a:lnum))
-    endif
-    " otherwise, mark each line as the start of a fold at level indent + 1
-    " this is to work with foldtext to hide the folded text completely,
-    " and so text at this level is not considered "folded"
-    let l:curr_indent = s:indent_level(a:lnum)
-    let l:next_indent = s:indent_level(a:lnum + 1)
-    if l:next_indent > l:curr_indent
-        return '>' .. (l:curr_indent + 1)
+    if getline(a:lnum) =~? '\v^\s*$'
+        " if a line is all whitespace, find the indent of the first subsequent non-whitespace line
+        let l:next_indent = s:indent_level(nextnonblank(a:lnum))
+        if l:next_indent == 0
+            " if the line has no parent, set the indent to 0
+            return 0
+        else
+            " otherwise, consider it part of its parent
+            return '>' .. (s:indent_level(prevnonblank(a:lnum)) + 1)
+        endif
     else
-        return l:curr_indent
+        " use the indent of nearby lines to determine the fold level
+        let l:curr_indent = s:indent_level(a:lnum)
+        let l:next_indent = s:indent_level(a:lnum + 1)
+        if l:curr_indent < l:next_indent
+            " if there is children, consider me the start of its fold
+            return '>' .. (l:curr_indent + 1)
+        else
+            " otherwise, I'm in the middle of my own fold
+            return l:curr_indent
+        endif
     endif
 endfunction
 
