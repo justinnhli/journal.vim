@@ -45,12 +45,12 @@ syntax region emph matchgroup=emphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*
 highlight emph cterm=italic gui=italic
 highlight link emphMark emph
 
-syntax region strong matchgroup=strongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types
+syntax region strong matchgroup=strongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types
 highlight strong cterm=bold gui=bold
 highlight link strongMark strong
 
-syntax region innerQuote matchgroup=innerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerEmph,innerStrong,@types contained
-syntax region outerQuote matchgroup=outerQuote start='[^[(/ \t]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerEmph,outerStrong,@types
+syntax region innerQuote matchgroup=innerQuote start='[^[:blank:][(/-]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerEmph,innerStrong,@types contained
+syntax region outerQuote matchgroup=outerQuote start='[^[:blank:][(/-]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerEmph,outerStrong,@types
 highlight link innerQuote String
 highlight link outerQuote Constant
 
@@ -64,12 +64,12 @@ highlight outerEmph cterm=italic gui=italic
 call s:InheritHighlight('outerEmph', 'Constant')
 highlight link outerEmphMark outerEmph
 
-syntax region innerStrong matchgroup=innerStrongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+syntax region innerStrong matchgroup=innerStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
 highlight innerStrong cterm=bold gui=bold
 call s:InheritHighlight('innerStrong', 'String')
 highlight link innerStrongMark innerStrong
 
-syntax region outerStrong matchgroup=outerStrongMark start='[__[:alnum:]]\@<!__[_ ]\@!' end='[_]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+syntax region outerStrong matchgroup=outerStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
 highlight outerStrong cterm=bold gui=bold
 call s:InheritHighlight('outerStrong', 'Constant')
 highlight link outerStrongMark outerStrong
@@ -79,10 +79,10 @@ syntax match reference '^\s*[a-zA-Z-]\+\(, [a-zA-Z-]\+\( [a-zA-z]\+\)*\)* ([0-9]
 syntax match reference '[[:alnum:]]\@<![a-zA-Z]\+[0-9]\{4\}\([A-Z][a-zA-Z]*\)[[:alnum:]]\@!' contains=@NoSpell
 highlight link reference Statement
 
-syntax match subformat 'http[^ ()]\+' contains=@NoSpell " link
+syntax match subformat 'http[^[:blank:]()]\+' contains=@NoSpell " link
 syntax match subformat '[._0-9A-Za-z]\+@[_0-9A-Za-z]\+\(\.[_0-9A-Za-z]\+\)\+' contains=@NoSpell " email
 syntax match subformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
-syntax match subformat '[^[:blank:]]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " Twitter handles
+syntax match subformat '[^[:blank:][(/-]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " @ handles
 syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline code
 syntax match subformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline LaTeX
 syntax region subformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
