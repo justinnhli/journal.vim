@@ -3,22 +3,32 @@ function! s:indent_level(lnum)
 endfunction
 
 function! journal#JournalFoldExpr(lnum)
-    if getline(a:lnum) =~? '\v^\s*$'
+    if a:lnum ==# '.'
+        let l:lnum = line('.')
+    else
+        let l:lnum = a:lnum
+    endif
+    let l:prev_line = getline(l:lnum - 1)
+    let l:next_line = getline(l:lnum + 1)
+    let l:prev_indent = s:indent_level(l:lnum - 1)
+    let l:curr_indent = s:indent_level(l:lnum)
+    let l:next_indent = s:indent_level(l:lnum + 1)
+    if getline(l:lnum) =~? '\v^\s*$'
         " if a line is all whitespace, find the indent of the first subsequent non-whitespace line
-        let l:next_indent = s:indent_level(nextnonblank(a:lnum))
-        if l:next_indent == 0
-            " if the line has no parent, set the indent to 0
-            return 0
+        let l:next_indent = s:indent_level(nextnonblank(l:lnum))
+        if trim(l:prev_line) =~# '^$' && trim(l:next_line) =~# '^$'
+            return -1
+        elseif l:prev_indent > 0
+            return l:prev_indent + 1
+        elseif l:next_indent > 0
+            return l:next_indent + 1
         else
-            " otherwise, consider it part of its parent
-            return '>' .. (s:indent_level(prevnonblank(a:lnum)) + 1)
+            " this should never happen
+            return -1
         endif
     else
-        " use the indent of nearby lines to determine the fold level
-        let l:curr_indent = s:indent_level(a:lnum)
-        let l:next_indent = s:indent_level(a:lnum + 1)
-        if l:curr_indent < l:next_indent
-            " if there is children, consider me the start of its fold
+        if trim(l:next_line) =~# '^$' || l:curr_indent < l:next_indent
+            " if the next line is blank, treat it like a child anyway
             return '>' .. (l:curr_indent + 1)
         else
             " otherwise, I'm in the middle of my own fold
