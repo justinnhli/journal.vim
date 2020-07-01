@@ -10,26 +10,23 @@ function! journal#JournalFoldExpr(lnum)
     endif
     let l:prev_line = getline(l:lnum - 1)
     let l:next_line = getline(l:lnum + 1)
-    let l:prev_indent = s:indent_level(l:lnum - 1)
     let l:curr_indent = s:indent_level(l:lnum)
-    let l:next_indent = s:indent_level(l:lnum + 1)
+    let l:next_indent = s:indent_level(nextnonblank(l:lnum + 1))
     if getline(l:lnum) =~? '\v^\s*$'
         " if a line is all whitespace, find the indent of the first subsequent non-whitespace line
-        let l:next_indent = s:indent_level(nextnonblank(l:lnum))
         if trim(l:prev_line) =~# '^$' && trim(l:next_line) =~# '^$'
             return -1
-        elseif l:prev_indent > 0
-            return l:prev_indent + 1
         elseif l:next_indent > 0
-            return l:next_indent + 1
+            return l:next_indent
+        elseif l:next_indent == 0
+            return 0
         else
-            " this should never happen
             return -1
         endif
     else
-        if trim(l:next_line) =~# '^$' || l:curr_indent < l:next_indent
-            " if the next line is blank, treat it like a child anyway
-            return '>' .. (l:curr_indent + 1)
+        if l:curr_indent < l:next_indent
+            " if the next line more indented, treat it like a child
+            return '>' .. l:next_indent
         else
             " otherwise, I'm in the middle of my own fold
             return l:curr_indent
