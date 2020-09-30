@@ -49,8 +49,8 @@ syntax region strong matchgroup=strongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end
 highlight strong cterm=bold gui=bold
 highlight link strongMark strong
 
-syntax region innerQuote matchgroup=innerQuote start='[^[:blank:][(/-]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerEmph,innerStrong,@types contained
-syntax region outerQuote matchgroup=outerQuote start='[^[:blank:][(/-]\@<!"' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerEmph,outerStrong,@types
+syntax region innerQuote matchgroup=innerQuote start='[^[:blank:][(/-]\@<!"[^ ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerEmph,innerStrong,@types contained
+syntax region outerQuote matchgroup=outerQuote start='[^[:blank:][(/-]\@<!"[^ ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerEmph,outerStrong,@types
 highlight link innerQuote String
 highlight link outerQuote Constant
 
