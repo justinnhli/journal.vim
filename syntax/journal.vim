@@ -17,8 +17,8 @@ endfunction
 
 syntax case match
 
-syntax match journalDatetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
-highlight link journalDatetime Identifier
+syntax match journalTitle '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
+highlight link journalTitle Identifier
 
 syntax keyword journalFixme FIXME TODO
 syntax match journalFixme '(FIXME\>[^()]*)' " parenthesized FIXMEs
@@ -88,4 +88,4 @@ syntax match journalSubformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!'hs=s+1,he
 syntax region journalSubformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
 highlight link journalSubformat Special
 
-syntax cluster types contains=journalDatetime,journalFlag,journalSpaceFlag,journalSubformat
+syntax cluster types contains=journalTitle,journalFlag,journalSpaceFlag,journalSubformat
