@@ -17,75 +17,75 @@ endfunction
 
 syntax case match
 
-syntax match datetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
-highlight link datetime Identifier
+syntax match journalDatetime '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
+highlight link journalDatetime Identifier
 
-syntax keyword fixme FIXME TODO
-syntax match fixme '(FIXME\>[^()]*)' " parenthesized FIXMEs
-syntax match fixme '\[FIXME\>[^]]*\]' " bracketed FIXMEs with notes
-highlight link fixme Todo
+syntax keyword journalFixme FIXME TODO
+syntax match journalFixme '(FIXME\>[^()]*)' " parenthesized FIXMEs
+syntax match journalFixme '\[FIXME\>[^]]*\]' " bracketed FIXMEs with notes
+highlight link journalFixme Todo
 
-syntax match flag ':\@<!([^:()][^()]*$' " unclosed parenthesis
-syntax match flag '^[^(:0-9]*):\@!' " unopened parenthesis
-syntax match flag '\[[^]]*$' " unclosed brackets
-syntax match flag '{[^}]*$' " unclosed braces
-syntax match flag '[^\t -~]' " non-ASCII characters
-highlight link flag Error
+syntax match journalFlag ':\@<!([^:()][^()]*$' " unclosed parenthesis
+syntax match journalFlag '^[^(:0-9]*):\@!' " unopened parenthesis
+syntax match journalFlag '\[[^]]*$' " unclosed brackets
+syntax match journalFlag '{[^}]*$' " unclosed braces
+syntax match journalFlag '[^\t -~]' " non-ASCII characters
+highlight link journalFlag Error
 
-syntax match spaceFlag '^\t*[^|]*[ 	]\+$'ms=e " unmarked end-of-line blanks
-syntax match spaceFlag '^\t*[^|]*  \+'ms=e-1 " unmarked multi-space
-syntax match spaceFlag '^\(\t*\)[^\t]*\n\1\t\{2,\}' " over-indentation
-syntax match spaceFlag '\n\n\t\+' " multiple blank lines
-syntax match spaceFlag '[^\t]\t' " non-indentation tabs
-syntax match spaceFlag '\t\@<= ' " mixed indentation
-syntax match spaceFlag '^ ' " space indentation
-highlight spaceFlag cterm=underline ctermfg=203 gui=underline guifg=#e27878 " color from Error guifg in iceberg.vim
+syntax match journalSpaceFlag '^\t*[^|]*[ 	]\+$'ms=e " unmarked end-of-line blanks
+syntax match journalSpaceFlag '^\t*[^|]*  \+'ms=e-1 " unmarked multi-space
+syntax match journalSpaceFlag '^\(\t*\)[^\t]*\n\1\t\{2,\}' " over-indentation
+syntax match journalSpaceFlag '\n\n\t\+' " multiple blank lines
+syntax match journalSpaceFlag '[^\t]\t' " non-indentation tabs
+syntax match journalSpaceFlag '\t\@<= ' " mixed indentation
+syntax match journalSpaceFlag '^ ' " space indentation
+highlight journalSpaceFlag cterm=underline ctermfg=203 gui=underline guifg=#e27878 " color from Error guifg in iceberg.vim
 
-syntax region emph matchgroup=emphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types
-highlight emph cterm=italic gui=italic
-highlight link emphMark emph
+syntax region journalEmph matchgroup=journalEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types
+highlight journalEmph cterm=italic gui=italic
+highlight link journalEmphMark journalEmph
 
-syntax region strong matchgroup=strongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types
-highlight strong cterm=bold gui=bold
-highlight link strongMark strong
+syntax region journalStrong matchgroup=journalStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types
+highlight journalStrong cterm=bold gui=bold
+highlight link journalStrongMark journalStrong
 
-syntax region innerQuote matchgroup=innerQuote start='[^[:blank:][(/-]\@<!"[^ ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=outerQuote,innerEmph,innerStrong,@types contained
-syntax region outerQuote matchgroup=outerQuote start='[^[:blank:][(/-]\@<!"[^ ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=innerQuote,outerEmph,outerStrong,@types
-highlight link innerQuote String
-highlight link outerQuote Constant
+syntax region journalInnerQuote matchgroup=journalInnerQuote start='[^[:blank:][(/-]\@<!"[^ ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOuterQuote,journalInnerEmph,journalInnerStrong,@types contained
+syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"[^ ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalInnerQuote,journalOuterEmph,journalOuterStrong,@types
+highlight link journalInnerQuote String
+highlight link journalOuterQuote Constant
 
-syntax region innerEmph matchgroup=innerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
-highlight innerEmph cterm=italic gui=italic
-call s:InheritHighlight('innerEmph', 'String')
-highlight link innerEmphMark innerEmph
+syntax region journalInnerEmph matchgroup=journalInnerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+highlight journalInnerEmph cterm=italic gui=italic
+call s:InheritHighlight('journalInnerEmph', 'String')
+highlight link journalInnerEmphMark journalInnerEmph
 
-syntax region outerEmph matchgroup=outerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
-highlight outerEmph cterm=italic gui=italic
-call s:InheritHighlight('outerEmph', 'Constant')
-highlight link outerEmphMark outerEmph
+syntax region journalOuterEmph matchgroup=journalOuterEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+highlight journalOuterEmph cterm=italic gui=italic
+call s:InheritHighlight('journalOuterEmph', 'Constant')
+highlight link journalOuterEmphMark journalOuterEmph
 
-syntax region innerStrong matchgroup=innerStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
-highlight innerStrong cterm=bold gui=bold
-call s:InheritHighlight('innerStrong', 'String')
-highlight link innerStrongMark innerStrong
+syntax region journalInnerStrong matchgroup=journalInnerStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+highlight journalInnerStrong cterm=bold gui=bold
+call s:InheritHighlight('journalInnerStrong', 'String')
+highlight link journalInnerStrongMark journalInnerStrong
 
-syntax region outerStrong matchgroup=outerStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
-highlight outerStrong cterm=bold gui=bold
-call s:InheritHighlight('outerStrong', 'Constant')
-highlight link outerStrongMark outerStrong
+syntax region journalOuterStrong matchgroup=journalOuterStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+highlight journalOuterStrong cterm=bold gui=bold
+call s:InheritHighlight('journalOuterStrong', 'Constant')
+highlight link journalOuterStrongMark journalOuterStrong
 
-syntax match reference '\[[a-zA-Z-]\+\( and [a-zA-Z-]\+\| et al.\)* ([0-9]\{4\})\]' contains=@NoSpell
-syntax match reference '^\s*[a-zA-Z-]\+\(, [a-zA-Z-]\+\( [a-zA-z]\+\)*\)* ([0-9]\{4\})\. .*[.?]$' contains=@NoSpell
-syntax match reference '[[:alnum:]]\@<![a-zA-Z]\+[0-9]\{4\}\([A-Z][a-zA-Z]*\)[[:alnum:]]\@!' contains=@NoSpell
-highlight link reference Statement
+syntax match journalReference '\[[a-zA-Z-]\+\( and [a-zA-Z-]\+\| et al.\)* ([0-9]\{4\})\]' contains=@NoSpell
+syntax match journalReference '^\s*[a-zA-Z-]\+\(, [a-zA-Z-]\+\( [a-zA-z]\+\)*\)* ([0-9]\{4\})\. .*[.?]$' contains=@NoSpell
+syntax match journalReference '[[:alnum:]]\@<![a-zA-Z]\+[0-9]\{4\}\([A-Z][a-zA-Z]*\)[[:alnum:]]\@!' contains=@NoSpell
+highlight link journalReference Statement
 
-syntax match subformat 'http[^[:blank:]()]\+' contains=@NoSpell " link
-syntax match subformat '[._0-9A-Za-z]\+@[_0-9A-Za-z]\+\(\.[_0-9A-Za-z]\+\)\+' contains=@NoSpell " email
-syntax match subformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
-syntax match subformat '[^[:blank:][(/-]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " @ handles
-syntax match subformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline code
-syntax match subformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline LaTeX
-syntax region subformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
-highlight link subformat Special
+syntax match journalSubformat 'http[^[:blank:]()]\+' contains=@NoSpell " link
+syntax match journalSubformat '[._0-9A-Za-z]\+@[_0-9A-Za-z]\+\(\.[_0-9A-Za-z]\+\)\+' contains=@NoSpell " email
+syntax match journalSubformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
+syntax match journalSubformat '[^[:blank:][(/-]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " @ handles
+syntax match journalSubformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline code
+syntax match journalSubformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline LaTeX
+syntax region journalSubformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
+highlight link journalSubformat Special
 
-syntax cluster types contains=datetime,flag,spaceFlag,subformat
+syntax cluster types contains=journalDatetime,journalFlag,journalSpaceFlag,journalSubformat
