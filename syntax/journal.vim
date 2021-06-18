@@ -80,7 +80,7 @@ syntax match journalReference '^\s*[a-zA-Z-]\+\(, [a-zA-Z-]\+\( [a-zA-z]\+\)*\)*
 syntax match journalReference '[[:alnum:]]\@<![a-zA-Z]\+[0-9]\{4\}\([A-Z][a-zA-Z]*\)[[:alnum:]]\@!' contains=@NoSpell
 highlight link journalReference Statement
 
-syntax match journalSubformat 'http[^[:blank:]()]\+' contains=@NoSpell " link
+syntax match journalSubformat 'https\?://[^[:blank:]()]\+' contains=@NoSpell " link
 syntax match journalSubformat '[._0-9A-Za-z]\+@[_0-9A-Za-z]\+\(\.[_0-9A-Za-z]\+\)\+' contains=@NoSpell " email
 syntax match journalSubformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
 syntax match journalSubformat '[^[:blank:][(/-]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " @ handles
