@@ -84,10 +84,11 @@ syntax match journalSubformat 'https\?://[^[:blank:]()]\+' contains=@NoSpell " l
 syntax match journalSubformat '[._0-9A-Za-z]\+@[_0-9A-Za-z]\+\(\.[_0-9A-Za-z]\+\)\+' contains=@NoSpell " email
 syntax match journalSubformat '/[ru]/[0-9A-Za-z_-]\+' contains=@NoSpell " subreddits/users
 syntax match journalSubformat '[^[:blank:][(/-]\@<!@[0-9A-Za-z_]\+\>' contains=@NoSpell " @ handles
-syntax match journalSubformat '[[:alnum:]]\@<!\:[^: ]\+\:[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " emoji shortcodes
-syntax match journalSubformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline code
-syntax match journalSubformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!'hs=s+1,he=e-1 contains=@NoSpell " inline LaTeX
-syntax region journalSubformat start='[^[:blank:]] ```$'ms=e-3,hs=e+1 end='^[[:blank:]]*```$'he=s-1 contains=@NoSpell " code block
+syntax match journalSubformat '[[:alnum:]]\@<!\:[^: ]\+\:[[:alnum:]]\@!' contains=@NoSpell " emoji shortcodes
+syntax match journalSubformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!' contains=@NoSpell " inline code
+syntax match journalSubformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!' contains=@NoSpell " inline LaTeX
+syntax region journalSubformat start='^[[:blank:]]*```$' end='^[[:blank:]]*```$' contains=@NoSpell " code block
+syntax region journalSubformat start='^[[:blank:]]*\$\$$' end='^[[:blank:]]*\$\$$' contains=@NoSpell " code block
 highlight link journalSubformat Special
 
 syntax cluster types contains=journalTitle,journalFlag,journalSpaceFlag,journalSubformat
