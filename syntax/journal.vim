@@ -50,30 +50,32 @@ syntax region journalStrong matchgroup=journalStrongMark start='[_[:alnum:]]\@<!
 highlight journalStrong cterm=bold gui=bold
 highlight link journalStrongMark journalStrong
 
-syntax region journalInnerQuote matchgroup=journalInnerQuote start='[^[:blank:][(/"-]\@<!"\([, ]\|$\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOuterQuote,journalInnerEmph,journalInnerStrong,@types contained
-syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"\([, ]\|$\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalInnerQuote,journalOuterEmph,journalOuterStrong,@types
-highlight link journalInnerQuote String
+syntax region journalOddQuote matchgroup=journalOddQuote start='[^[:blank:][(/"-]\@<!"\("*\([, ]\|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalEvenQuote,journalOddEmph,journalOddStrong,@types contained
+syntax region journalEvenQuote matchgroup=journalEvenQuote start='[^[:blank:][(/"-]\@<!"\("*\([, ]\|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOddQuote,journalEvenEmph,journalEvenStrong,@types contained
+syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"\("*\([, ]\|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalEvenQuote,journalOddEmph,journalOddStrong,@types
+highlight link journalOddQuote Constant
+highlight link journalEvenQuote String
 highlight link journalOuterQuote Constant
 
-syntax region journalInnerEmph matchgroup=journalInnerEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
-highlight journalInnerEmph cterm=italic gui=italic
-call s:InheritHighlight('journalInnerEmph', 'String')
-highlight link journalInnerEmphMark journalInnerEmph
+syntax region journalEvenEmph matchgroup=journalEvenEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+highlight journalEvenEmph cterm=italic gui=italic
+call s:InheritHighlight('journalEvenEmph', 'String')
+highlight link journalEvenEmphMark journalEvenEmph
 
-syntax region journalOuterEmph matchgroup=journalOuterEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
-highlight journalOuterEmph cterm=italic gui=italic
-call s:InheritHighlight('journalOuterEmph', 'Constant')
-highlight link journalOuterEmphMark journalOuterEmph
+syntax region journalOddEmph matchgroup=journalOddEmphMark start='[*[:alnum:]]\@<!\*[* ]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+highlight journalOddEmph cterm=italic gui=italic
+call s:InheritHighlight('journalOddEmph', 'Constant')
+highlight link journalOddEmphMark journalOddEmph
 
-syntax region journalInnerStrong matchgroup=journalInnerStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
-highlight journalInnerStrong cterm=bold gui=bold
-call s:InheritHighlight('journalInnerStrong', 'String')
-highlight link journalInnerStrongMark journalInnerStrong
+syntax region journalEvenStrong matchgroup=journalEvenStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+highlight journalEvenStrong cterm=bold gui=bold
+call s:InheritHighlight('journalEvenStrong', 'String')
+highlight link journalEvenStrongMark journalEvenStrong
 
-syntax region journalOuterStrong matchgroup=journalOuterStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
-highlight journalOuterStrong cterm=bold gui=bold
-call s:InheritHighlight('journalOuterStrong', 'Constant')
-highlight link journalOuterStrongMark journalOuterStrong
+syntax region journalOddStrong matchgroup=journalOddStrongMark start='[_[:alnum:]]\@<!__[_ ]\@!' end='[_ ]\@<!__[_[:alnum:]]\@!' oneline contains=@types contained
+highlight journalOddStrong cterm=bold gui=bold
+call s:InheritHighlight('journalOddStrong', 'Constant')
+highlight link journalOddStrongMark journalOddStrong
 
 syntax match journalReference '\[[a-zA-Z-]\+\( and [a-zA-Z-]\+\| et al.\)* ([0-9]\{4\})\]' contains=@NoSpell
 syntax match journalReference '^\s*[a-zA-Z-]\+\(, [a-zA-Z-]\+\( [a-zA-z]\+\)*\)* ([0-9]\{4\})\. .*[.?]$' contains=@NoSpell
