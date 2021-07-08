@@ -50,8 +50,8 @@ syntax region journalStrong matchgroup=journalStrongMark start='[_[:alnum:]]\@<!
 highlight journalStrong cterm=bold gui=bold
 highlight link journalStrongMark journalStrong
 
-syntax region journalInnerQuote matchgroup=journalInnerQuote start='[^[:blank:][(/-]\@<!"[^, ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOuterQuote,journalInnerEmph,journalInnerStrong,@types contained
-syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"[^, ]' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalInnerQuote,journalOuterEmph,journalOuterStrong,@types
+syntax region journalInnerQuote matchgroup=journalInnerQuote start='[^[:blank:][(/"-]\@<!"\([, ]\|$\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOuterQuote,journalInnerEmph,journalInnerStrong,@types contained
+syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"\([, ]\|$\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalInnerQuote,journalOuterEmph,journalOuterStrong,@types
 highlight link journalInnerQuote String
 highlight link journalOuterQuote Constant
 
