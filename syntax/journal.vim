@@ -79,7 +79,7 @@ highlight link journalOddStrongMark journalOddStrong
 
 syntax match journalReference '\[[[:alpha:]-]\+\( and [[:alpha:]-]\+\| et al.\)* ([0-9]\{4\})\]' contains=@NoSpell
 syntax match journalReference '^\s*[[:alpha:]-]\+\(, [[:alpha:]-]\+\( [[:alpha:]]\+\)*\)* ([0-9]\{4\})\. .*[.?]$' contains=@NoSpell
-syntax match journalReference '[[:alnum:]]\@<![[:alpha:]]\+[0-9]\{4\}\([A-Z][[:alpha:]]*\)[[:alnum:]]\@!' contains=@NoSpell
+syntax match journalReference '[[:alnum:]]\@<![[:alpha:]]\+[0-9]\{4\}\([A-Z][[:alnum:]]*\)[[:alnum:]]\@!' contains=@NoSpell
 highlight link journalReference Statement
 
 syntax match journalSubformat 'https\?://[^[:blank:]()]\+' contains=@NoSpell " link
