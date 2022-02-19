@@ -50,9 +50,9 @@ syntax region journalStrong matchgroup=journalStrongMark start='[[:alnum:]_]\@<!
 highlight journalStrong cterm=bold gui=bold
 highlight link journalStrongMark journalStrong
 
-syntax region journalOddQuote matchgroup=journalOddQuote start='[^[:blank:][(/"-]\@<!"\("*\([, ]\|\. \|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalEvenQuote,journalOddEmph,journalOddStrong,@types contained
-syntax region journalEvenQuote matchgroup=journalEvenQuote start='[^[:blank:][(/"-]\@<!"\("*\([, ]\|\. \|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOddQuote,journalEvenEmph,journalEvenStrong,@types contained
-syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"\("*\([, ]\|\. \|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalEvenQuote,journalOddEmph,journalOddStrong,@types
+syntax region journalOddQuote matchgroup=journalOddQuote start='[^[:blank:][(/"-]\@<!"\("*\([, ]\|\.[.[:alpha:]]\@!\|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalEvenQuote,journalOddEmph,journalOddStrong,@types contained
+syntax region journalEvenQuote matchgroup=journalEvenQuote start='[^[:blank:][(/"-]\@<!"\("*\([, ]\|\.[.[:alpha:]]\@!\|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalOddQuote,journalEvenEmph,journalEvenStrong,@types contained
+syntax region journalOuterQuote matchgroup=journalOuterQuote start='[^[:blank:][(/-]\@<!"\("*\([, ]\|\.[.[:alpha:]]\@!\|$\)\)\@!' end='[[:blank:]([]\@<!"[[:alnum:]]\@!' contains=journalEvenQuote,journalOddEmph,journalOddStrong,@types
 highlight link journalOddQuote Constant
 highlight link journalEvenQuote String
 highlight link journalOuterQuote Constant
