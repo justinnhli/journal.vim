@@ -43,6 +43,7 @@ syntax match journalSpaceFlag '^ ' " space indentation
 highlight journalSpaceFlag cterm=underline ctermfg=203 gui=underline guifg=#e27878 " color from Error guifg in iceberg.vim
 
 syntax region journalEmph matchgroup=journalEmphMark start='[*[:alnum:]]\@<!\*[ *]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types
+syntax region journalEmph matchgroup=journalEmphMark start='[_[:alnum:]]\@<!_[ _]\@!' end='[_]\@<!_[_[:alnum:]]\@!' oneline contains=@types
 highlight journalEmph cterm=italic gui=italic
 highlight link journalEmphMark journalEmph
 
@@ -58,11 +59,13 @@ highlight link journalEvenQuote String
 highlight link journalOuterQuote Constant
 
 syntax region journalEvenEmph matchgroup=journalEvenEmphMark start='[*[:alnum:]]\@<!\*[ *]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+syntax region journalEvenEmph matchgroup=journalEvenEmphMark start='[_[:alnum:]]\@<!_[ _]\@!' end='[_]\@<!_[_[:alnum:]]\@!' oneline contains=@types contained
 highlight journalEvenEmph cterm=italic gui=italic
 call s:InheritHighlight('journalEvenEmph', 'String')
 highlight link journalEvenEmphMark journalEvenEmph
 
 syntax region journalOddEmph matchgroup=journalOddEmphMark start='[*[:alnum:]]\@<!\*[ *]\@!' end='[*]\@<!\*[*[:alnum:]]\@!' oneline contains=@types contained
+syntax region journalOddEmph matchgroup=journalOddEmphMark start='[_[:alnum:]]\@<!_[ _]\@!' end='[_]\@<!_[_[:alnum:]]\@!' oneline contains=@types contained
 highlight journalOddEmph cterm=italic gui=italic
 call s:InheritHighlight('journalOddEmph', 'Constant')
 highlight link journalOddEmphMark journalOddEmph
