@@ -88,7 +88,7 @@ highlight link journalReference Statement
 syntax match journalSubformat 'https\?://[^[:blank:]()]\+' contains=@NoSpell " link
 syntax match journalSubformat '[[:alnum:]_.]\+@[[:alnum:]_]\+\(\.[[:alnum:]_]\+\)\+' contains=@NoSpell " email
 syntax match journalSubformat '/[ru]/[[:alnum:]_-]\+' contains=@NoSpell " subreddits/users
-syntax match journalSubformat '\~\(/[a-z0-9-]*\)*/[a-z0-9-]\+\(\.[a-z]\+\)\?' contains=@NoSpell " filepath
+syntax match journalSubformat '\~/\([a-z0-9-]*/\)*\([a-z0-9-]\+\(\.[a-z]\+\)\?\)\?' contains=@NoSpell " filepath
 syntax match journalSubformat '[^[:blank:][(/-]\@<!@[[:alnum:]_]\+\>' contains=@NoSpell " @ handles
 syntax match journalSubformat '[[:alnum:]]\@<!\:[^: ]\+\:[[:alnum:]]\@!' contains=@NoSpell " emoji shortcodes
 syntax match journalSubformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!' contains=@NoSpell " inline code
