@@ -23,7 +23,7 @@ endif
 " grepprg {
 let s:command = 'journal.py --directory=' .. journal#GetJournalDir(expand('%:p:h'))
 for ignore_file in g:jrnl_ignore_files
-       let s:command = s:command .. ' --ignore=' .. expand(ignore_file)
+    let s:command = s:command .. ' --ignore=' .. expand(ignore_file)
 endfor
 let s:command = s:command .. ' --vimgrep'
 let s:command = substitute(s:command, ' ', '\\ ', 'g')
