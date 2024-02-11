@@ -97,4 +97,4 @@ syntax match journalSubformat '[^[:blank:][(/-]\@<!@[[:alnum:]_]\+\>' contains=@
 syntax match journalSubformat '/[ru]/[[:alnum:]_-]\+' contains=@NoSpell " subreddits/users
 highlight link journalSubformat Special
 
-syntax cluster types contains=journalTitle,journalFlag,journalSpaceFlag,journalSubformat
+syntax cluster types contains=journalTitle,journalFixme,journalFlag,journalSpaceFlag,journalSubformat
