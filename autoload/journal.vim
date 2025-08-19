@@ -101,7 +101,11 @@ endfunction
 
 function! journal#PreWriteAutocmd()
     let l:winview = winsaveview()
-    %s#\s\+$##e
-    %retab
+    if search('\s\+$', 'nw') != 0
+        %s#\s\+$##e
+    endif
+    if search('^\t* ', 'nw') != 0
+        %retab
+    endif
     call winrestview(l:winview)
 endfunction
