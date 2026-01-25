@@ -17,6 +17,9 @@ endfunction
 
 syntax case match
 
+syntax match journalSection '^\t*\zs[A-Z '-]\+$' " all caps
+highlight link journalSection Title
+
 syntax match journalTitle '\<[0-9]\{4\}-[0-1][0-9]-[0-3][0-9]\(, \(Sun\|Mon\|Tues\|Wednes\|Thurs\|Fri\|Satur\)day\)\?\>'
 syntax match journalTitle '\[\[[^][]\+\]\]'
 highlight link journalTitle Identifier
