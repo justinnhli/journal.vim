@@ -20,6 +20,19 @@ if has('syntax')
 endif
 " }
 
+" mapping {
+function s:CreateOutline()
+    " grep lines one indent or less, with between 1-30 characters
+    let l:lines = system('grep -Hn "^\t\?[^	]\{1,30\}$" ' .. shellescape(expand('%:p')))
+    " split the lines into a list
+    let l:lines = split(l:lines, '\n')
+    " replace the tab with four spaces
+    let l:lines = map(l:lines, {i, ele -> substitute(ele, '	', '    ', '')})
+    return l:lines
+endfunction
+nnoremap  <buffer>  gO  :lexpr <SID>CreateOutline()<cr>
+" }
+
 " grepprg {
 let s:command = 'journal.py --directory=' .. journal#GetJournalDir(expand('%:p:h'))
 for ignore_file in g:jrnl_ignore_files
