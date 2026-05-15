@@ -48,9 +48,5 @@ setlocal grepformat=%f:%l:%c:%m
 autocmd  BufWritePre  <buffer>  call journal#PreWriteAutocmd()
 " }
 
-" commands {
-command! -buffer -nargs=+  Journal  call journal#JournalCommand(<q-args>)
-" }
-
 " change directory
 exec 'lcd! ' .. journal#GetJournalDir(expand('%:p:h'))

@@ -87,18 +87,6 @@ function! journal#GetJournalDir(dir)
     return a:dir
 endfunction
 
-function! journal#JournalCommand(args)
-    tabnew
-    let l:command = 'journal.py --directory="' .. journal#GetJournalDir(expand('%:p:h')) .. '"'
-    for ignore_file in g:jrnl_ignore_files
-        let l:command = l:command .. ' --ignore='.expand(ignore_file)
-    endfor
-    execute 'r!' .. l:command .. ' ' .. a:args
-    0d
-    setlocal nobreakindent buftype=nowrite nofoldenable filetype=journal readonly nomodifiable
-    0
-endfunction
-
 function! journal#PreWriteAutocmd()
     let l:winview = winsaveview()
     if search('\s\+$', 'nw') != 0
