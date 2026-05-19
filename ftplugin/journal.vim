@@ -23,7 +23,7 @@ endif
 " mapping {
 function s:CreateOutline()
     " grep lines one indent or less, with between 1-30 characters
-    let l:lines = system('grep -Hn "^\t\?[^	]\{1,30\}$" ' .. shellescape(expand('%:p')))
+    let l:lines = system('grep -Hn "^	\?[^	]\{1,30\}$" ' .. shellescape(expand('%:p')))
     " split the lines into a list
     let l:lines = split(l:lines, '\n')
     " replace the tab with four spaces
