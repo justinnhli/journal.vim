@@ -93,6 +93,7 @@ syntax match journalSubformat '[[:alnum:]_.]\+@[[:alnum:]_]\+\(\.[[:alnum:]_]\+\
 syntax match journalSubformat 'https\?://[^[:blank:]()]\+' contains=@NoSpell " link
 syntax match journalSubformat '[[:alnum:]]\@<!\:[^: ]\+\:[[:alnum:]]\@!' contains=@NoSpell " emoji shortcodes
 syntax region journalSubformat start='^[[:blank:]]*```[a-z]*$' end='^[[:blank:]]*```$' contains=@NoSpell " code block
+syntax match journalSubformat '^\s*|.*' contains=@NoSpell " table
 syntax match journalSubformat '[[:alnum:]]\@<!\`[^`]\+\`[[:alnum:]]\@!' contains=@NoSpell " inline code
 syntax match journalSubformat '[[:alnum:]]\@<!\$[^$]\+\$[[:alnum:]]\@!' contains=@NoSpell " inline LaTeX
 syntax region journalSubformat start='^[[:blank:]]*\$\$$' end='^[[:blank:]]*\$\$$' contains=@NoSpell " LaTeX math block
