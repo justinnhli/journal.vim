@@ -1,8 +1,8 @@
-function! s:HighlightGroupAttribute(group, attr)
+function s:HighlightGroupAttribute(group, attr)
 	return matchstr(execute('highlight ' .. a:group), a:attr .. '=\zs\S*')
 endfunction
 
-function! s:InheritHighlight(child, parent)
+function s:InheritHighlight(child, parent)
 	" this only works if the parent is not linked to something else
 	for s:term in ['cterm', 'gui']
 		for s:aspect in ['fg', 'bg']

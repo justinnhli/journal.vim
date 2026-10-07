@@ -1,8 +1,8 @@
-function! s:indent_level(lnum)
+function s:indent_level(lnum)
     return indent(a:lnum) / &tabstop
 endfunction
 
-function! journal#JournalFoldExpr(lnum)
+function journal#JournalFoldExpr(lnum)
     if a:lnum ==# '.'
         let l:lnum = line('.')
     else
@@ -34,14 +34,14 @@ function! journal#JournalFoldExpr(lnum)
     endif
 endfunction
 
-function! s:editable_area_width()
+function s:editable_area_width()
     " from https://stackoverflow.com/questions/26315925/get-usable-window-width-in-vim-script/26318602#26318602
     redir => a | execute 'silent sign place buffer=' .. bufnr('') | redir end
     let signlist=split(a, '\n')
     return winwidth(0) - ((&number||&relativenumber) ? &numberwidth : 0) - &foldcolumn - (len(signlist) > 2 ? 2 : 0)
 endfunction
 
-function! journal#JournalFoldText()
+function journal#JournalFoldText()
     " calculate the first non-blank line of the fold
     let l:foldtextstart = nextnonblank(v:foldstart)
     " calculate the indent level
@@ -65,7 +65,7 @@ function! journal#JournalFoldText()
 endfunction
 
 " change directory to ancestor with cache files
-function! journal#GetJournalDir(dir)
+function journal#GetJournalDir(dir)
     let l:parent_dir = a:dir
     let l:child_dir = ''
     let l:found_root = 1
@@ -87,7 +87,7 @@ function! journal#GetJournalDir(dir)
     return a:dir
 endfunction
 
-function! journal#PreWriteAutocmd()
+function journal#PreWriteAutocmd()
     let l:winview = winsaveview()
     if search('\s\+$', 'nw') != 0
         %s#\s\+$##e
@@ -98,7 +98,7 @@ function! journal#PreWriteAutocmd()
     call winrestview(l:winview)
 endfunction
 
-function! journal#CreateOutline()
+function journal#CreateOutline()
     " replace URLs before proceeding
     let l:lines = system('sed "s/https.*/<URL>/;" ' .. shellescape(expand('%:p')))
     " grep lines one indent or less, with between 1-30 characters
