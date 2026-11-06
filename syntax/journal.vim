@@ -88,9 +88,9 @@ syntax match journalReference '^\s*[[:alpha:]-]\+\(, [[:alpha:]-]\+\( [[:alpha:]
 syntax match journalReference '[[:alnum:]]\@<![[:alpha:]]\+[0-9]\{4\}\([A-Z][[:alnum:]]*\)[[:alnum:]]\@!' contains=@NoSpell
 highlight link journalReference Statement
 
-syntax match journalSubformat '[.\~]/\([[:alnum:]._-]*/\)*\([[:alnum:]._-]\+\)\?' contains=@NoSpell " filepath
+syntax match journalSubformat '[[:alnum:]]\@<![.\~]\?/[[:alnum:]._-]\+\(/[[:alnum:]._-]\+\)*/\?' contains=@NoSpell " filepath
 syntax match journalSubformat '[[:alnum:]_.]\+@[[:alnum:]_]\+\(\.[[:alnum:]_]\+\)\+' contains=@NoSpell " email
-syntax match journalSubformat 'https\?://[^[:blank:]()]\+' contains=@NoSpell " link
+syntax match journalSubformat '\<https\?://[^[:blank:]()]\+' contains=@NoSpell " URL
 syntax match journalSubformat '[[:alnum:]]\@<!\:[^: ]\+\:[[:alnum:]]\@!' contains=@NoSpell " emoji shortcodes
 syntax region journalSubformat start='^[[:blank:]]*```[a-z]*$' end='^[[:blank:]]*```$' contains=@NoSpell " code block
 syntax match journalSubformat '^\s*|.*' contains=@NoSpell " table
